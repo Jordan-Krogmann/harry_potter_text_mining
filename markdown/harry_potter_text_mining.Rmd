@@ -1,0 +1,72 @@
+---
+title: "Text Mining Harry Potter Books"
+output: html_notebook
+---
+
+
+
+# Set Up
+
+```{r load-libraries, warning=FALSE, message=FALSE}
+library(harrypotter)
+library(tidyverse)
+library(tidytext)
+```
+
+# Data Pull
+
+```{r}
+# Titles of the books
+titles <- c(
+  "Philosopher's Stone", 
+  "Chamber of Secrets", 
+  "Prisoner of Azkaban",
+  "Goblet of Fire", 
+  "Order of the Phoenix", 
+  "Half-Blood Prince",
+  "Deathly Hallows"
+  )
+
+# putting each of the books into a list
+books <- list(
+  philosophers_stone, 
+  chamber_of_secrets, 
+  prisoner_of_azkaban,
+  goblet_of_fire, 
+  order_of_the_phoenix, 
+  half_blood_prince,
+  deathly_hallows
+  )
+
+# Each book is an array in which each value in the array is a chapter 
+harry_potter_df <- tibble()
+for(i in seq_along(titles)) {
+  
+  temp <- tibble(
+    chapter = seq_along(books[[i]]),
+                  text = books[[i]]) %>%
+    unnest_tokens(word, text) %>%
+    
+    #tokenize each chapter into words
+    mutate(book = titles[i]) %>%
+    select(book, everything())
+  
+  harry_potter_df <- rbind(harry_potter_df, temp)
+}
+
+# Check data process
+head(harry_potter_df)
+```
+
+# Exploratory Data Analysis
+
+
+First up, how many words are in each Harry Potter Book?
+```{r}
+harry_potter_df %>% 
+  group_by(
+    book
+  ) %>% 
+  summarise(word_count = n())
+```
+
