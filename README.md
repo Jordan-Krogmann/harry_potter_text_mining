@@ -1,2 +1,8 @@
-# harry_potter_text_mining
-Look at the sentiment for harry potter books
+
+# Text Mining Harry Potter Books
+
+## Set Up
+
+## Data
+
+## Exploratory Data Analysis
