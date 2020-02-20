@@ -55,7 +55,7 @@ for(i in seq_along(titles)) {
 }
 
 # Check data process
-head(harry_potter_df)
+head(harry_potter_df, n = 4)
 ```
 
 # Exploratory Data Analysis
@@ -63,10 +63,56 @@ head(harry_potter_df)
 
 First up, how many words are in each Harry Potter Book?
 ```{r}
+word_count_plt <- harry_potter_df %>% 
+  mutate(book = fct_relevel(book, "Philosopher's Stone", "Chamber of Secrets",
+                                    "Prisoner of Azkaban", "Goblet of Fire",
+                                    "Order of the Phoenix", "Half-Blood Prince",
+                                    "Deathly Hallows")) %>% 
+  group_by(book) %>%
+  summarise(word_count = n()) %>% 
+  ungroup() %>% 
+  ggplot(aes(x = book, y = word_count, group = 1, fill = book)) + 
+    geom_col(color = "black") + 
+    geom_text(aes(label = word_count), vjust = -1) + 
+    expand_limits(y = c(0, 300000)) + 
+    scale_y_continuous(labels = scales::comma) + 
+    theme_minimal() + 
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      axis.text = element_text(face = "bold", size = 12),
+      axis.title = element_text(face = "bold", size = 12),
+      plot.title = element_text(face = "bold", size = 16),
+      plot.subtitle = element_text(face = "bold", size = 14),
+      legend.position = "none"
+    ) + 
+    labs(
+      title = "Harry Potter: Word Count by Book",
+      subtitle = "Order of the Pheonix contains the most words",
+      y = "Word Count",
+      x = "",
+      caption = "*Data scourced & pull using https://github.com/bradleyboehmke/harrypotter"
+    )
+
+
+word_count_plt
+```
+
+```{r, fig.width=9, fig.height=6}
 harry_potter_df %>% 
-  group_by(
-    book
+  anti_join(stop_words, by = "word") %>% 
+  inner_join(get_sentiments("afinn"), by = "word") %>% 
+  group_by(book, chapter) %>% 
+  summarise(
+    sentiment = mean(value)
   ) %>% 
-  summarise(word_count = n())
+  ungroup() %>% 
+  mutate(book = fct_relevel(book, "Philosopher's Stone", "Chamber of Secrets",
+                                  "Prisoner of Azkaban", "Goblet of Fire",
+                                  "Order of the Phoenix", "Half-Blood Prince",
+                                  "Deathly Hallows")) %>%
+  ggplot(aes(x = sentiment)) + 
+    geom_density() + 
+    facet_wrap(. ~ book, scales = "free", nrow = 1)
+  
 ```
 
