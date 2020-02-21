@@ -126,8 +126,4 @@ harry_potter_df %>%
   
 ```
 
-```{r}
-harry_potter_df %>% 
-  
-```
 
