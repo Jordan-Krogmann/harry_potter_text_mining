@@ -110,9 +110,24 @@ harry_potter_df %>%
                                   "Prisoner of Azkaban", "Goblet of Fire",
                                   "Order of the Phoenix", "Half-Blood Prince",
                                   "Deathly Hallows")) %>%
-  ggplot(aes(x = sentiment)) + 
-    geom_density() + 
-    facet_wrap(. ~ book, scales = "free", nrow = 1)
+  ggplot(aes(x = sentiment, fill = book)) + 
+    geom_density(color = "black", alpha = .5) + 
+    facet_wrap(. ~ book, scales = "free", nrow = 2) + 
+    theme_minimal() +
+    theme(
+      legend.position = "none"
+    ) + 
+    labs(
+      title = "Harry Potter: Mean of Distribution Sentiment by Chapter",
+      subtitle = "",
+      x = "Sentiment",
+      y = "Density"
+    )
+  
+```
+
+```{r}
+harry_potter_df %>% 
   
 ```
 
