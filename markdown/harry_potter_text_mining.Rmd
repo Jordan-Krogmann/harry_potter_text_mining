@@ -127,3 +127,47 @@ harry_potter_df %>%
 ```
 
 
+```{r}
+sent_by_chap_book_plt <- harry_potter_df %>% 
+  anti_join(stop_words, by = "word") %>% 
+  inner_join(get_sentiments("afinn"), by = "word") %>% 
+  group_by(book, chapter) %>% 
+  summarise(
+    sentiment = mean(value)
+  ) %>% 
+  ungroup() %>% 
+  mutate(book = fct_relevel(book, "Philosopher's Stone", "Chamber of Secrets",
+                                  "Prisoner of Azkaban", "Goblet of Fire",
+                                  "Order of the Phoenix", "Half-Blood Prince",
+                                  "Deathly Hallows")) %>% 
+  ggplot(aes(x = chapter, y = sentiment, color = book)) + 
+    geom_hline(aes(yintercept = 0), linetype = 5) + 
+    geom_point(size = 2) + 
+    geom_line(size = 1.2) +
+    theme_minimal() + 
+    theme(
+      # axis.text.x = element_text(angle = 45, hjust = 1),
+      axis.text = element_text(face = "bold", size = 12),
+      axis.title = element_text(face = "bold", size = 12),
+      plot.title = element_text(face = "bold", size = 16),
+      plot.subtitle = element_text(face = "bold", size = 14),
+      strip.text = element_text(face = "bold", size = 12, color = "white"),
+      strip.background = element_rect(fill = "dodgerblue4"),
+      legend.position = "none"
+      
+    ) + 
+    facet_wrap(. ~ book, scales = "free_x", nrow = 2) + 
+    labs(
+      title = "Harry Potter: Sentiment by Chapter",
+      subtitle = "Who would have guessed a book about dark wizards is negative?",
+      caption = paste("*Data scourced & pull using https://github.com/bradleyboehmke/harrypotter \n *The Number zero means neutral Sentiment")
+    )
+```
+
+```{r}
+ggsave(
+  path = here::here("imgs"), 
+  plot = sent_by_chap_book_plt, 
+  filename = "sent_by_chap_book_plt.png", height = 8, width = 14)
+```
+
