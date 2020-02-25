@@ -1,5 +1,5 @@
 
-# Text Mining Harry Potter Books
+# Text Mining Harry Potter Books <img src="./imgs/deathly_hallows_2.png" align="right" width="120" />
 
 ## Overview
 
