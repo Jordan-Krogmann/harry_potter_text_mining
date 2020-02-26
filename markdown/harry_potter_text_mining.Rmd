@@ -160,9 +160,18 @@ sent_by_chap_book_plt <- harry_potter_df %>%
     labs(
       title = "Harry Potter: Sentiment by Chapter",
       subtitle = "Who would have guessed a book about dark wizards is negative?",
-      caption = paste("*Data scourced & pull using https://github.com/bradleyboehmke/harrypotter \n *The Number zero means neutral Sentiment")
+      caption = paste("*Data scourced & pull using https://github.com/bradleyboehmke/harrypotter \n \n *The Number zero means neutral Sentiment"),
+      y = "Afinn Sentiment",
+      x = "Chapter"
     )
 ```
+
+```{r}
+sent_by_chap_book_plt
+```
+
+
+
 
 ```{r}
 ggsave(
