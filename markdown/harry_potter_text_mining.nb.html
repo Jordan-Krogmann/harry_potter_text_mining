@@ -1948,18 +1948,12 @@ word_count_plt</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuaGVyZTo6aGVyZShcXGltZ3NcXClcblxuYGBgXG5gYGAifQ== -->
-<pre class="r"><code>```r
-here::here(\imgs\)
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIFxcQzovVXNlcnMvSm9yZGFuL0Rlc2t0b3AvcHJvamVjdF9yZXBvc2l0b3J5L2hhcnJ5X3BvdHRlcl90ZXh0X21pbmluZy9pbWdzXFxcbiJ9 --&gt;
-</code></pre>
-<p>[1] :/Users/Jordan/Desktop/project_repository/harry_potter_text_mining/imgs<br />
-```</p>
-<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dzYXZlKFxuICBwYXRoID0gaGVyZTo6aGVyZShcImltZ3NcIiksIFxuICBwbG90ID0gc2VudF9ieV9jaGFwX2Jvb2tfcGx0LCBcbiAgZmlsZW5hbWUgPSBcInNlbnRfYnlfY2hhcF9ib29rX3BsdC5wbmdcIiwgaGVpZ2h0ID0gOCwgd2lkdGggPSAxNClcbmBgYCJ9 -->
+<pre class="r"><code>ggsave(
+  path = here::here(&quot;imgs&quot;), 
+  plot = sent_by_chap_book_plt, 
+  filename = &quot;sent_by_chap_book_plt.png&quot;, height = 8, width = 14)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
