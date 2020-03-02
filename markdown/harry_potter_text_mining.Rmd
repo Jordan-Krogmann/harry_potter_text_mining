@@ -62,6 +62,8 @@ head(harry_potter_df, n = 4)
 
 
 First up, how many words are in each Harry Potter Book?
+
+ 
 ```{r}
 word_count_plt <- harry_potter_df %>% 
   mutate(book = fct_relevel(book, "Philosopher's Stone", "Chamber of Secrets",
@@ -93,12 +95,10 @@ word_count_plt <- harry_potter_df %>%
       caption = "*Data scourced & pull using https://github.com/bradleyboehmke/harrypotter"
     )
 
-
-word_count_plt
 ```
 
 ```{r, fig.width=9, fig.height=6}
-harry_potter_df %>% 
+sentiment_dist_plt <- harry_potter_df %>% 
   anti_join(stop_words, by = "word") %>% 
   inner_join(get_sentiments("afinn"), by = "word") %>% 
   group_by(book, chapter) %>% 
@@ -166,7 +166,17 @@ sent_by_chap_book_plt <- harry_potter_df %>%
     )
 ```
 
+
+
 ```{r}
+
+```
+
+
+
+```{r}
+word_count_plt
+sentiment_dist_plt
 sent_by_chap_book_plt
 ```
 
